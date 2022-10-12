@@ -16,6 +16,7 @@ try:
     import cassandra
     from cassandra import cluster as c_cluster
     from cassandra import concurrent as c_concurrent
+    from cassandra.auth import PlainTextAuthProvider
     import logging
     logging.getLogger("cassandra").setLevel(logging.ERROR)
 except ImportError:
@@ -267,12 +268,12 @@ if cassandra is not None:
             _ = kwargs
             keyspace = kwargs["keyspace"]
             replication = kwargs["replication"]
-
+            credential = {'username':kwargs["username"], 'password':kwargs["password"]}
             if cls.__session is None:
                 # Allow dependency injection
                 session = kwargs.get("session")
                 if session is None:
-                    cluster = c_cluster.Cluster(seeds)
+                    cluster = c_cluster.Cluster(seeds,protocol_version=1, auth_provider=credential)
                     session = cluster.connect()
                 cls.__session = session
             if cls.__session.keyspace != keyspace:
