@@ -268,13 +268,14 @@ if cassandra is not None:
             _ = kwargs
             keyspace = kwargs["keyspace"]
             replication = kwargs["replication"]
+            ap = PlainTextAuthProvider(username=kwargs["username"], password=kwargs["password"])
             def getCredential(self):
                 return {'username':kwargs["username"], 'password':kwargs["password"]}
             if cls.__session is None:
                 # Allow dependency injection
                 session = kwargs.get("session")
                 if session is None:
-                    cluster = c_cluster.Cluster(seeds,protocol_version=1, auth_provider=getCredential)
+                    cluster = c_cluster.Cluster(seeds,protocol_version=2, auth_provider=ap)
                     session = cluster.connect()
                 cls.__session = session
             if cls.__session.keyspace != keyspace:
