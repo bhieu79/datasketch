@@ -278,13 +278,13 @@ if cassandra is not None:
                     cluster = c_cluster.Cluster(seeds,protocol_version=4, auth_provider=ap)
                     session = cluster.connect()
                 cls.__session = session
-            if cls.__session.keyspace != keyspace:
-                if kwargs.get("drop_keyspace", False):
-                    cls.__session.execute(cls.QUERY_DROP_KEYSPACE.format(keyspace))
-                cls.__session.execute(cls.QUERY_CREATE_KEYSPACE.format(
-                    keyspace=keyspace,
-                    replication=str(replication),
-                ))
+            # if cls.__session.keyspace != keyspace:
+            #     if kwargs.get("drop_keyspace", False):
+            #         cls.__session.execute(cls.QUERY_DROP_KEYSPACE.format(keyspace))
+            #     cls.__session.execute(cls.QUERY_CREATE_KEYSPACE.format(
+            #         keyspace=keyspace,
+            #         replication=str(replication),
+            #     ))
                 cls.__session.set_keyspace(keyspace)
             return cls.__session
 
