@@ -275,7 +275,7 @@ if cassandra is not None:
                 # Allow dependency injection
                 session = kwargs.get("session")
                 if session is None:
-                    cluster = c_cluster.Cluster(seeds,protocol_version=3, auth_provider=ap)
+                    cluster = c_cluster.Cluster(seeds,protocol_version=5, auth_provider=ap)
                     session = cluster.connect()
                 cls.__session = session
             if cls.__session.keyspace != keyspace:
