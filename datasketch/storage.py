@@ -313,7 +313,7 @@ if cassandra is not None:
                 value blob,
                 ts bigint,
                 PRIMARY KEY (key, value)
-            ) WITH CLUSTERING ORDER BY (value DESC)
+            ) WITH CLUSTERING ORDER BY (value DESC) and default_time_to_live=86400
         """
 
         QUERY_DROP_TABLE = "DROP TABLE IF EXISTS {}"
