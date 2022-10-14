@@ -286,7 +286,7 @@ if cassandra is not None:
             #         replication=str(replication),
             #     ))
                 cls.__session.set_keyspace(keyspace)
-                cls.__session.default_timeout=None 
+                # cls.__session.default_timeout=None 
             return cls.__session
 
         @classmethod
@@ -309,7 +309,7 @@ if cassandra is not None:
 
         PAGE_SIZE = 1024
 
-        CONCURRENCY = 100
+        CONCURRENCY = 10
 
         QUERY_CREATE_TABLE = """
             CREATE TABLE IF NOT EXISTS {}  (
