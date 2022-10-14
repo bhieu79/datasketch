@@ -286,7 +286,7 @@ if cassandra is not None:
             #         replication=str(replication),
             #     ))
                 cls.__session.set_keyspace(keyspace)
-                # cls.__session.default_timeout=None 
+                cls.__session.default_timeout=100 
             return cls.__session
 
         @classmethod
